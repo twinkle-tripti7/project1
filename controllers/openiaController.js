@@ -15,7 +15,7 @@ exports.summaryController = async (req, res) => {
       max_tokens: 500,
       temperature: 0.5,
     });
-    if (data) {
+    if (data && data.choices && data.choices.length > 0) {
       if (data.choices[0].text) {
         return res.status(200).json(data.choices[0].text);
       }

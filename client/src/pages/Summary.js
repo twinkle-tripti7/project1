@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
+// import toast from "react-hot-toast";
 import axios from "axios";
 import {
   Box,
@@ -16,7 +16,7 @@ import {
 
 const Summary = () => {
   const theme = useTheme();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   //media
   const isNotMobile = useMediaQuery("(min-width: 1000px)");
   // states
@@ -28,12 +28,13 @@ const Summary = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post("/api/v1/openai/summary", { text });
+      const { data } = await axios.post('http://localhost:6005/api/v1/openai/summary', { text });
+
       console.log(data);
-      setSummary(data);
+      setSummary(data.summary);
     } catch (err) {
       console.log(error);
-      if (err.response.data.error) {
+      if (err.response) {
         setError(err.response.data.error);
       } else if (err.message) {
         setError(err.message);
@@ -52,7 +53,7 @@ const Summary = () => {
       sx={{ boxShadow: 5 }}
       backgroundColor={theme.palette.background.alt}
     >
-      <Collapse in={error}>
+      <Collapse in={Boolean(error)}>
         <Alert severity="error" sx={{ mb: 2 }}>
           {error}
         </Alert>

@@ -18,6 +18,7 @@ const Navbar = () => {
       navigate("/login");
     } catch (error) {
       console.log(error);
+      toast.error("Failed to logout");
     }
   };
   return (
@@ -29,7 +30,7 @@ const Navbar = () => {
       sx={{ boxShadow: 3, mb: 2 }}
     >
       <Typography variant="h1" color="primary" fontWeight="bold">
-        AI GPT3 Clone
+        SmartChat.
       </Typography>
       {loggedIn ? (
         <>

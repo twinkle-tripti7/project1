@@ -33,7 +33,7 @@ const Login = () => {
       navigate("/");
     } catch (err) {
       console.log(error);
-      if (err.response.data.error) {
+      if (err.response.data.error && err.response.data.error) {
         setError(err.response.data.error);
       } else if (err.message) {
         setError(err.message);
@@ -52,7 +52,7 @@ const Login = () => {
       sx={{ boxShadow: 5 }}
       backgroundColor={theme.palette.background.alt}
     >
-      <Collapse in={error}>
+      <Collapse in={!!error}>
         <Alert severity="error" sx={{ mb: 2 }}>
           {error}
         </Alert>

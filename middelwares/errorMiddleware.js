@@ -1,11 +1,11 @@
-const errorResponse = require("../utils/errroResponse");
+const errorResponse = require("../utils/errorResponse");
 
 const errorHandler = (err, req, res, next) => {
   let error = { ...err };
   error.message = err.message;
 
   //mongoose cast Error
-  if (err.name === "castError") {
+  if (err.name === "CastError") {
     const message = "Resources Not Found";
     error = new errorResponse(message, 404);
   }
@@ -18,11 +18,11 @@ const errorHandler = (err, req, res, next) => {
   if (err.name === "ValidationError") {
     const messgae = Object.values(err.errors).map((val) => val.message);
     error = new errorResponse(message, 400);
-    res.status(error.statusCode || 500).json({
-      success: false,
-      error: error.message || "Server Error",
-    });
   }
+  res.status(error.statusCode || 500).json({
+    success: false,
+    error: error.message || "Server Error",
+  });
 };
 
 module.exports = errorHandler;
